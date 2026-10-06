@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Server (tsx watch)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev:server",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Web (Vite)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev:web",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Browser (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/apps/web"
+    },
+    {
+      "name": "Packages (tsc watch)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "node node_modules/typescript/bin/tsc -b packages/game-engine --watch --preserveWatchOutput",
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Dahnabi: full stack",
+      "configurations": ["Packages (tsc watch)", "Server (tsx watch)", "Web (Vite)", "Browser (Edge)"],
+      "stopAll": true
+    }
+  ]
+}
