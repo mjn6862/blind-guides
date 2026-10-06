@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: blind-guides
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST_PASSWORD
+        sync: false
+    # Free tier has no persistent disk — game files are lost on restart/spin-down.
+    # Fine for synchronous play; upgrade to a paid instance + disk if you need saves.

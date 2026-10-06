@@ -1,0 +1,25 @@
+{
+  "name": "@blind-guides/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@blind-guides/game-engine": "*",
+    "@blind-guides/shared": "*",
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "vitest": "^5.0.3"
+  }
+}

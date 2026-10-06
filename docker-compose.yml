@@ -1,0 +1,15 @@
+services:
+  blind-guides:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      HOST_PASSWORD: ${HOST_PASSWORD:?Set HOST_PASSWORD in .env}
+    volumes:
+      - blind-guides-data:/app/apps/server/data
+    restart: unless-stopped
+
+volumes:
+  blind-guides-data:

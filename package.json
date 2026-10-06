@@ -1,0 +1,23 @@
+{
+  "name": "blind-guides",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=@blind-guides/shared && npm run build --workspace=@blind-guides/game-engine && npm run build --workspace=@blind-guides/server && npm run build --workspace=@blind-guides/web",
+    "start": "npm run start --workspace=@blind-guides/server",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "dev:server": "npm run dev --workspace=@blind-guides/server",
+    "dev:web": "npm run dev --workspace=@blind-guides/web",
+    "dev": "concurrently -n server,web -c blue,green \"npm run dev:server\" \"npm run dev:web\"",
+    "tunnel": "npx --yes cloudflared@latest tunnel --url http://localhost:5173"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.2"
+  }
+}
