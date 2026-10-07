@@ -15,7 +15,7 @@ const EFFECT_DESCRIPTIONS: Record<GameEffect, string> = {
   STUMBLE: "stumble",
   AUTO_PLAY_IF_PLAYABLE: "auto-play if playable",
   GAIN_POINTER_IF_SAME_NUMBER_NOT_PLAYED:
-    "gain 1 pointer if that number is not on the played pile yet",
+    "gain 1 pointer if and only if that number is not on the played pile yet for this color",
 };
 
 function numbersEqual(
@@ -57,9 +57,9 @@ export function formatPlayabilityRule(
 ): string {
   switch (playability.type) {
     case "standard":
-      return "Play in order — lower numbers must already be on the pile";
+      return "Play in increasing order";
     case "reverse":
-      return "Play in reverse order — higher numbers must already be on the pile";
+      return "Play in decreasing order";
     case "any_order":
       return "Play in any order";
     case "after_color_complete":
@@ -76,9 +76,9 @@ export function formatClueMatchingRule(
 ): string {
   if (!canBeClued) {
     if (clueMatching.type === "every_color") {
-      return "Cannot be clued; matches every color clue and number clues by value";
+      return "Color cannot be clued; number clues match standardly";
     }
-    return "Cannot receive clues";
+    return "Color cannot receive clues";
   }
 
   switch (clueMatching.type) {
@@ -89,7 +89,7 @@ export function formatClueMatchingRule(
     case "color_only":
       return "Only color clues match";
     case "every_color":
-      return "Matches every color clue; number clues match by value";
+      return "Matches every color clue; number clues match standardly";
     case "every_number":
       return "Matches every number clue";
     case "specific_colors":
@@ -106,8 +106,8 @@ export function formatClueMatchingRule(
       const numberPhrase =
         clueMatching.numberMatch === null
           ? "Matches no number clues"
-          : `Matches only a ${clueMatching.numberMatch} number clue`;
-      return `${numberPhrase}; ${rankLines.join("; ")}`;
+          : `Matches a ${clueMatching.numberMatch} clue and no other number clue`;
+      return `${numberPhrase}; for color clues, ${rankLines.join("; ")}`;
     }
     default:
       return "Custom clue matching";
@@ -132,7 +132,7 @@ export function describeColorRules(
   if (isStandardColor(color)) {
     return [
       "Standard color",
-      "Play in order; discard gains 1 pointer; failed play is a stumble",
+      "Play in order; discard gains 1 pointer; misplay is a stumble",
       "Receives color and number clues normally",
       `Card counts: ${formatCardCounts(color.numbers)}`,
     ];

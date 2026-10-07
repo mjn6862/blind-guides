@@ -843,7 +843,7 @@ export function GameScreen({
                   onBlur={() => {
                     notesFocused.current = false;
                   }}
-                  placeholder="Track clues about your cards, e.g. 'B is red', 'D and E are not blue'…"
+                  placeholder="Track deductions or ideas here, e.g., B must be the Blue 4 because that's the only reason the other player would've given me a Blue clue..."
                   rows={4}
                   spellCheck={false}
                 />
@@ -855,7 +855,7 @@ export function GameScreen({
             <div className="panel">
               <h2>Undo controls</h2>
               <p className="muted">
-                Undo the last action if someone mis-clicked. Disabled if the host checked
+                Undo the most recent action. This is intended primarily for handling misclicks and is not intended to be a game mechanic. This is disabled if the host checked
                 "Don't allow Undo Action" in game settings.
               </p>
               <button
@@ -888,7 +888,7 @@ export function GameScreen({
               )}
               <p className="muted">
                 Export the game before a long break so you can import it later if the server
-                goes idle. After importing a saved game, share a fresh invite link — the code
+                goes idle. After importing a saved game, share a fresh invite link because the code
                 changes each time.
               </p>
               <div className="row">

@@ -193,7 +193,7 @@ export function LobbyScreen({
         <div className="panel">
           <h2>Save lobby</h2>
           <p className="muted">
-            Export the lobby if you need to pause before starting — import it later from the
+            Export the lobby if you need to pause before starting. Import it later from the
             home screen.
           </p>
           <button type="button" disabled={exporting} onClick={exportGame}>

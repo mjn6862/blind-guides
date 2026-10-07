@@ -232,7 +232,7 @@ export function HomeScreen({ onCreated, onJoined }: Props) {
         <h2>Continue from saved game</h2>
         <p className="muted">
           Upload a game export file to pick up where you left off after a break. Use the same
-          display name you had when the game was saved (hosts: your name as host). Friends
+          display name you had when the game was saved. Friends
           rejoin with the new invite code using their original names.
         </p>
         <label className="import-file-field">

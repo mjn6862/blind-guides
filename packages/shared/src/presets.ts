@@ -26,7 +26,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
   {
     id: "rainbow",
     name: "Rainbow",
-    description: "Cannot be clued; matches all color clues and number clues by value",
+    description: "Rainbow color cannot be clued. Rainbow cards match all color clues.",
     config: {
       id: "rainbow",
       displayName: "Rainbow",
@@ -43,7 +43,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
   {
     id: "backpedal",
     name: "Backpedal",
-    description: "Reverse play order; 1×1, 2×2, 3×2, 4×2, 5×3",
+    description: "Reverse play order (5,4,3,2,1), with nonstandard card counts 3x5, 2x4, 2x3, 2x2, and 1x1.",
     config: {
       id: "backpedal",
       displayName: "Black",
@@ -66,7 +66,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
   {
     id: "ghost",
     name: "Ghost",
-    description: "Cannot be clued; otherwise standard",
+    description: "Ghost color cannot be clued.",
     config: {
       id: "ghost",
       displayName: "Gray",
@@ -83,7 +83,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
   {
     id: "opposite_day",
     name: "Opposite Day",
-    description: "Misplay gains a pointer; discard is a stumble",
+    description: "Misplaying an Opposite Day earns gains a pointer, but discarding is a stumble.",
     config: {
       id: "opposite_day",
       displayName: "Pink",
@@ -100,7 +100,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
   {
     id: "gas_guzzler",
     name: "Gas Guzzler",
-    description: "Discard may gain a pointer if that number isn't on the played pile yet",
+    description: "Discarding a Gas Guzzler card earns a pointer if and only if there are no Gas Guzzler cards of that number on the played pile yet.",
     config: {
       id: "gas_guzzler",
       displayName: "Forest Green",
@@ -118,7 +118,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
     id: "rainno",
     name: "RainNo",
     description:
-      "Every card matches only a 5 clue; each rank matches its own set of color clues",
+      "Every RainNo card matches a 5 clue and no other number clue. Each number matches its own set of color clues.",
     config: {
       id: "rainno",
       displayName: "Orange",
@@ -146,7 +146,7 @@ export const COLOR_PRESETS: ColorPreset[] = [
     id: "ghostno",
     name: "GhostNo",
     description:
-      "Every card matches no numbers at all; each rank matches its own set of color clues",
+      "GhostNo cards do not match any number clues. Eacg number matches its own set of color clues.",
     config: {
       id: "ghostno",
       displayName: "Sky Blue",

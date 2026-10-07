@@ -225,7 +225,7 @@ export function RuleConfigForm({ initialRules, onSave }: Props) {
           checked={openHand}
           onChange={(e) => setOpenHand(e.target.checked)}
         />
-        Open-hand mode (for beginners — you can see your own cards)
+        Open-hand mode: players can see their own cards. Used only for the purposes of teaching new players the game. Not recommended for actual play.
       </label>
 
       <label className="checkbox-label block">
@@ -234,7 +234,7 @@ export function RuleConfigForm({ initialRules, onSave }: Props) {
           checked={ranked}
           onChange={(e) => setRanked(e.target.checked)}
         />
-        Don't allow "Undo Action" button
+        Don't allow "Undo Action" button.
       </label>
 
       <p className="muted">
