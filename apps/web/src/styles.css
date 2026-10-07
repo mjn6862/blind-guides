@@ -582,6 +582,20 @@ select {
   border: 1px solid #cbd5e0;
 }
 
+.preset-rules-details {
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.preset-rules-details summary {
+  cursor: pointer;
+  color: #4a5568;
+}
+
+.preset-rules-details .rules-list {
+  margin-top: 0.35rem;
+}
+
 .player-order-controls {
   margin-top: 0.25rem;
 }

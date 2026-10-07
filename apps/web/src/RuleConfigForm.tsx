@@ -4,6 +4,7 @@ import {
   buildColorsFromSelection,
   buildDefaultLobbyRules,
   COLOR_PRESETS,
+  describeColorRules,
   STANDARD_COLOR_IDS,
   type ColorPresetId,
 } from "@blind-guides/shared";
@@ -46,6 +47,15 @@ export function RuleConfigForm({ initialRules, onSave }: Props) {
   const [ranked, setRanked] = useState(base.ranked);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const allPresetColors = useMemo(
+    () =>
+      buildColorsFromSelection(
+        [...STANDARD_COLOR_IDS],
+        COLOR_PRESETS.map((preset) => preset.id),
+      ),
+    [],
+  );
 
   const previewRules = useMemo(
     (): GameRules => ({
@@ -169,6 +179,17 @@ export function RuleConfigForm({ initialRules, onSave }: Props) {
                     />
                   </label>
                 )}
+                <details className="preset-rules-details">
+                  <summary>View full rules</summary>
+                  <ul className="rules-list compact">
+                    {describeColorRules(
+                      { ...preset.config, displayColor },
+                      allPresetColors,
+                    ).map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                </details>
               </div>
             );
           })}
