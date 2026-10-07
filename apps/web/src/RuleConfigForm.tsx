@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { GameRules } from "@blind-guides/shared";
 import {
   buildColorsFromSelection,
@@ -12,9 +12,10 @@ import {
 type Props = {
   initialRules?: GameRules;
   onSave: (rules: GameRules) => Promise<void>;
+  onRulesChange?: (rules: GameRules) => void;
 };
 
-export function RuleConfigForm({ initialRules, onSave }: Props) {
+export function RuleConfigForm({ initialRules, onSave, onRulesChange }: Props) {
   const base = initialRules ?? buildDefaultLobbyRules();
 
   const [standardColors, setStandardColors] = useState<string[]>(
@@ -83,6 +84,10 @@ export function RuleConfigForm({ initialRules, onSave }: Props) {
       ranked,
     ],
   );
+
+  useEffect(() => {
+    onRulesChange?.(previewRules);
+  }, [previewRules, onRulesChange]);
 
   const toggleStandard = (id: string) => {
     setStandardColors((prev) =>

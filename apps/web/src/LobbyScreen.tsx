@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { GameRules, LobbyView } from "@blind-guides/shared";
 import { buildInviteClipboardText, buildInviteUrl } from "./invite-link.js";
 import { downloadGameExport } from "./game-export-io.js";
@@ -46,6 +46,7 @@ export function LobbyScreen({
   const players = lobby?.players ?? [{ id: session.playerId, displayName: session.displayName }];
   const isHost = lobby?.isHost ?? true;
   const rules = lobby?.rules;
+  const latestRulesRef = useRef<GameRules | undefined>(rules);
 
   const saveRules = async (newRules: GameRules) => {
     const res = await fetch(`/api/games/${session.gameId}/rules`, {
@@ -83,6 +84,12 @@ export function LobbyScreen({
     setStarting(true);
     setStartError(null);
     try {
+      if (isHost && latestRulesRef.current) {
+        if (latestRulesRef.current.colors.length === 0) {
+          throw new Error("Select at least one color");
+        }
+        await saveRules(latestRulesRef.current);
+      }
       const res = await fetch(`/api/games/${session.gameId}/start`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -179,7 +186,13 @@ export function LobbyScreen({
       {isHost ? (
         <div className="panel">
           <h2>Game rules</h2>
-          <RuleConfigForm initialRules={rules} onSave={saveRules} />
+          <RuleConfigForm
+            initialRules={rules}
+            onSave={saveRules}
+            onRulesChange={(r) => {
+              latestRulesRef.current = r;
+            }}
+          />
         </div>
       ) : (
         rules && (
