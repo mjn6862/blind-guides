@@ -17,7 +17,10 @@
     "tunnel": "npx --yes cloudflared@latest tunnel --url http://localhost:5173"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0",
+    "concurrently": "^9.2.1",
     "typescript": "^5.7.2"
+  },
+  "overrides": {
+    "shell-quote": "^1.12.0"
   }
 }
