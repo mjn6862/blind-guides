@@ -568,6 +568,7 @@ async function handleUndo(room: GameRoom, playerId: string): Promise<void> {
 export function getHistorySnapshot(
   room: GameRoom,
   index: number,
+  viewerId: string,
 ): TurnHistorySnapshot | { error: string } {
   if (!room.state || room.status === "lobby") {
     return { error: "Game has not started" };
@@ -575,7 +576,12 @@ export function getHistorySnapshot(
   if (!Number.isInteger(index) || index < 0 || index >= room.turnHistory.length) {
     return { error: "Invalid history index" };
   }
-  const snapshot = buildHistorySnapshot(room.turnHistory, index);
+  const snapshot = buildHistorySnapshot(
+    room.turnHistory,
+    index,
+    viewerId,
+    room.status === "finished",
+  );
   if (!snapshot) {
     return { error: "Snapshot not available" };
   }

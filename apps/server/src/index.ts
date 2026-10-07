@@ -250,7 +250,7 @@ app.get("/api/games/:gameId/history/:index", async (c) => {
   }
 
   const index = Number(c.req.param("index"));
-  const result = getHistorySnapshot(room, index);
+  const result = getHistorySnapshot(room, index, playerId);
   if ("error" in result) {
     return c.json({ error: result.error }, 400);
   }

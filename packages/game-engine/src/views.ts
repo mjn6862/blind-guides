@@ -165,6 +165,8 @@ export function buildPlayerView(
 export function buildHistorySnapshot(
   turnHistory: TurnRecord[],
   recordIndex: number,
+  viewerId: string,
+  gameFinished: boolean,
 ): TurnHistorySnapshot | null {
   const record = turnHistory[recordIndex];
   if (!record?.state) return null;
@@ -174,10 +176,12 @@ export function buildHistorySnapshot(
   const current =
     snapshotState.phase === "playing" ? getCurrentPlayer(snapshotState) : null;
 
+  const showOwnCards = snapshotState.rules.openHand || gameFinished;
   const hands: Record<string, CardView[]> = {};
   for (const player of snapshotState.players) {
     const slots = snapshotState.hands[player.id] ?? [];
-    hands[player.id] = slotsToCardViews(snapshotState, slots, false, new Set());
+    const hidden = player.id === viewerId && !showOwnCards;
+    hands[player.id] = slotsToCardViews(snapshotState, slots, hidden, new Set());
   }
 
   const handClueHistories = buildAllHandClueHistories(
