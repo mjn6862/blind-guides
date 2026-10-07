@@ -4,6 +4,7 @@ import { GameScreen } from "./GameScreen.js";
 import { HomeScreen } from "./HomeScreen.js";
 import { LobbyScreen } from "./LobbyScreen.js";
 import { useGameSocket } from "./useGameSocket.js";
+import { useTheme } from "./useTheme.js";
 
 type Session = {
   gameId: string;
@@ -38,6 +39,7 @@ export function App() {
   const { connectionState, lobby, view, error, setError, send } = useGameSocket(
     session?.sessionToken ?? null,
   );
+  const { theme, resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     saveSession(session);
@@ -64,6 +66,8 @@ export function App() {
             inviteCode: data.inviteCode,
           })
         }
+        theme={theme}
+        onThemeChange={setTheme}
       />
     );
   }
@@ -83,6 +87,9 @@ export function App() {
         onAction={(action: GameAction) => send({ type: "ACTION", action })}
         onSaveNotes={(notes) => send({ type: "SAVE_NOTES", notes })}
         onLeave={leave}
+        theme={theme}
+        resolvedTheme={resolvedTheme}
+        onThemeChange={setTheme}
       />
     );
   }
@@ -97,6 +104,8 @@ export function App() {
       onStarted={() => {
         /* state arrives via websocket */
       }}
+      theme={theme}
+      onThemeChange={setTheme}
     />
   );
 }

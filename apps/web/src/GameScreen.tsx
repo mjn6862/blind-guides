@@ -11,10 +11,12 @@ import type { CardClueHistory, CardTurnInfo } from "@blind-guides/shared";
 import { ColorRulesTooltip } from "./ColorRulesTooltip.js";
 import { RulesModal } from "./RulesModal.js";
 import { GameEndOverlay } from "./GameEndOverlay.js";
+import { ThemeToggle } from "./ThemeToggle.js";
 import { TurnActionOverlay } from "./TurnActionOverlay.js";
 import { useClueListExpansion } from "./useClueListExpansion.js";
 import { downloadGameExport } from "./game-export-io.js";
 import { buildInviteClipboardText } from "./invite-link.js";
+import type { ThemeMode } from "./useTheme.js";
 
 type Props = {
   view: PlayerGameView;
@@ -25,10 +27,23 @@ type Props = {
   onAction: (action: GameAction) => void;
   onSaveNotes: (notes: string) => void;
   onLeave: () => void;
+  theme: ThemeMode;
+  resolvedTheme: "light" | "dark";
+  onThemeChange: (theme: ThemeMode) => void;
 };
 
 function formatColorLabel(name: string): string[] {
   return name.replace(/_/g, " ").split(/\s+/).filter(Boolean);
+}
+
+function relativeLuminance(hex: string): number {
+  const match = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+  if (!match) return 0.5;
+  const [r, g, b] = match.slice(1, 4).map((part) => {
+    const channel = parseInt(part, 16) / 255;
+    return channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
 }
 
 function CardHoverTooltip({
@@ -383,6 +398,9 @@ export function GameScreen({
   onAction,
   onSaveNotes,
   onLeave,
+  theme,
+  resolvedTheme,
+  onThemeChange,
 }: Props) {
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
@@ -535,9 +553,13 @@ export function GameScreen({
     })
     .join(" → ");
 
-  function pileLabelStyle(colorId: string, displayColor: string): CSSProperties {
-    if (colorId === "white") {
+  function pileLabelStyle(displayColor: string): CSSProperties {
+    const luminance = relativeLuminance(displayColor);
+    if (resolvedTheme === "light" && luminance > 0.55) {
       return { color: "#2d3748" };
+    }
+    if (resolvedTheme === "dark" && luminance < 0.3) {
+      return { color: "#f7fafc" };
     }
     return { color: displayColor };
   }
@@ -581,6 +603,7 @@ export function GameScreen({
       <header className="game-header row">
         <h1>Blind Guides</h1>
         <div className="header-actions row">
+          <ThemeToggle theme={theme} onChange={onThemeChange} />
           <button type="button" onClick={() => setRulesOpen(true)}>
             Rules
           </button>
@@ -682,7 +705,7 @@ export function GameScreen({
                   <div className="color-pile color-pile-hoverable">
                     <strong
                       className={color.id === "white" ? "pile-label-light" : undefined}
-                      style={pileLabelStyle(color.id, color.displayColor)}
+                      style={pileLabelStyle(color.displayColor)}
                     >
                       <span
                         className="pile-swatch"

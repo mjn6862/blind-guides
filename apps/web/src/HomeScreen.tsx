@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { readInviteCodeFromUrl } from "./invite-link.js";
+import { ThemeToggle } from "./ThemeToggle.js";
+import type { ThemeMode } from "./useTheme.js";
 
 const HOST_PASSWORD_KEY = "blind-guides-host-password";
 
@@ -18,9 +20,11 @@ type Props = {
     sessionToken: string;
     displayName: string;
   }) => void;
+  theme: ThemeMode;
+  onThemeChange: (theme: ThemeMode) => void;
 };
 
-export function HomeScreen({ onCreated, onJoined }: Props) {
+export function HomeScreen({ onCreated, onJoined, theme, onThemeChange }: Props) {
   const [displayName, setDisplayName] = useState("");
   const [hostPassword, setHostPassword] = useState(
     () => sessionStorage.getItem(HOST_PASSWORD_KEY) ?? "",
@@ -177,7 +181,10 @@ export function HomeScreen({ onCreated, onJoined }: Props) {
 
   return (
     <div>
-      <h1>Blind Guides</h1>
+      <div className="row" style={{ justifyContent: "space-between" }}>
+        <h1>Blind Guides</h1>
+        <ThemeToggle theme={theme} onChange={onThemeChange} />
+      </div>
       <p className="muted">Blind Guides: the blind lead the blind in this cooperative card game.</p>
 
       <div className="panel">

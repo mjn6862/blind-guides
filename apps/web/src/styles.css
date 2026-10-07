@@ -1,8 +1,86 @@
 :root {
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
-  color: #1a1a2e;
-  background: #f4f6fb;
+
+  --color-text: #1a1a2e;
+  --color-text-muted: #718096;
+  --color-text-soft: #4a5568;
+  --color-bg: #f4f6fb;
+  --color-panel-bg: #fff;
+  --color-card-bg: #fff;
+  --color-card-border: #2d3748;
+  --color-border: #cbd5e0;
+  --color-border-soft: #e2e8f0;
+  --color-border-softer: #edf2f7;
+  --color-input-bg: #fff;
+  --color-button-bg: #fff;
+  --color-button-border: #4a5568;
+  --color-modal-overlay: rgba(26, 26, 46, 0.45);
+  --color-tooltip-bg: #1a202c;
+  --color-tooltip-text: #f7fafc;
+  --color-highlight-bg: #ebf8ff;
+  --color-banner-accent-bg: #faf5ff;
+  --color-notice-bg: #fffbeb;
+  --color-paused-bg: #fefcbf;
+  --color-card-highlight-bg: #fffff0;
+  --color-pile-bg: #edf2f7;
+  --color-pile-bg-hover: #e2e8f0;
+  --color-clue-green-bg: #e6fffa;
+  --color-clue-green-text: #234e52;
+  --color-clue-red-bg: #fff5f5;
+  --color-clue-red-text: #742a2a;
+  --color-clue-tag-green-bg: #c6f6d5;
+  --color-clue-tag-green-text: #22543d;
+  --color-clue-tag-green-border: #9ae6b4;
+  --color-clue-tag-red-bg: #fed7d7;
+  --color-clue-tag-red-text: #742a2a;
+  --color-clue-tag-red-border: #feb2b2;
+  --color-turn-banner-bg: #bee3f8;
+  --color-turn-banner-text: #1a365d;
+
+  color: var(--color-text);
+  background: var(--color-bg);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --color-text: #e6e9f0;
+  --color-text-muted: #9aa5b8;
+  --color-text-soft: #c3cbdb;
+  --color-bg: #14161f;
+  --color-panel-bg: #1f2230;
+  --color-card-bg: #262b3a;
+  --color-card-border: #5a6275;
+  --color-border: #3a3f52;
+  --color-border-soft: #2d3142;
+  --color-border-softer: #282c3a;
+  --color-input-bg: #262b3a;
+  --color-button-bg: #262b3a;
+  --color-button-border: #5a6275;
+  --color-modal-overlay: rgba(0, 0, 0, 0.6);
+  --color-tooltip-bg: #0b0d13;
+  --color-tooltip-text: #f7fafc;
+  --color-highlight-bg: #1c3450;
+  --color-banner-accent-bg: #2a2140;
+  --color-notice-bg: #3a331a;
+  --color-paused-bg: #3a3620;
+  --color-card-highlight-bg: #4a3f1a;
+  --color-pile-bg: #262b3a;
+  --color-pile-bg-hover: #323849;
+  --color-clue-green-bg: #163a2d;
+  --color-clue-green-text: #8fe0b8;
+  --color-clue-red-bg: #3a1a1a;
+  --color-clue-red-text: #f3b4b4;
+  --color-clue-tag-green-bg: #1f4a36;
+  --color-clue-tag-green-text: #8fe0b8;
+  --color-clue-tag-green-border: #2f6b4a;
+  --color-clue-tag-red-bg: #4a1f1f;
+  --color-clue-tag-red-text: #f3b4b4;
+  --color-clue-tag-red-border: #6b2f2f;
+  --color-turn-banner-bg: #1c3a56;
+  --color-turn-banner-text: #bee3f8;
+
+  color-scheme: dark;
 }
 
 * {
@@ -27,8 +105,9 @@ h3 {
 
 button {
   cursor: pointer;
-  border: 1px solid #4a5568;
-  background: #fff;
+  border: 1px solid var(--color-button-border);
+  background: var(--color-button-bg);
+  color: var(--color-text);
   border-radius: 6px;
   padding: 0.45rem 0.8rem;
 }
@@ -48,11 +127,13 @@ input,
 select {
   padding: 0.45rem 0.6rem;
   border-radius: 6px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--color-border);
+  background: var(--color-input-bg);
+  color: var(--color-text);
 }
 
 .panel {
-  background: #fff;
+  background: var(--color-panel-bg);
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -67,7 +148,7 @@ select {
 }
 
 .muted {
-  color: #718096;
+  color: var(--color-text-muted);
 }
 
 .error {
@@ -90,6 +171,31 @@ select {
   margin-left: auto;
 }
 
+.theme-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-button-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.theme-toggle-option {
+  border: none;
+  border-radius: 0;
+  background: var(--color-button-bg);
+  color: var(--color-text);
+  padding: 0.45rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+.theme-toggle-option + .theme-toggle-option {
+  border-left: 1px solid var(--color-button-border);
+}
+
+.theme-toggle-option.active {
+  background: #3b5bdb;
+  color: #fff;
+}
+
 .game-meta {
   margin: 0.25rem 0 0.75rem;
 }
@@ -97,19 +203,19 @@ select {
 .turn-banner {
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  background: #e2e8f0;
+  background: var(--color-border-soft);
   font-weight: 600;
   margin-bottom: 0.75rem;
 }
 
 .turn-banner.your-turn {
-  background: #bee3f8;
+  background: var(--color-turn-banner-bg);
   border: 2px solid #3182ce;
-  color: #1a365d;
+  color: var(--color-turn-banner-text);
 }
 
 .turn-banner.paused {
-  background: #fefcbf;
+  background: var(--color-paused-bg);
   border: 2px solid #d69e2e;
 }
 
@@ -137,7 +243,7 @@ select {
 
 .private-notes {
   margin-top: 1rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-border-soft);
   padding-top: 0.75rem;
 }
 
@@ -154,12 +260,14 @@ select {
   font-size: 0.95rem;
   line-height: 1.4;
   padding: 0.5rem 0.6rem;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
+  background: var(--color-input-bg);
+  color: var(--color-text);
 }
 
 .open-hand-notice {
-  background: #fffbeb;
+  background: var(--color-notice-bg);
   border: 1px solid #f6e05e;
   border-radius: 8px;
   padding: 0.6rem 0.8rem;
@@ -251,13 +359,13 @@ select {
 }
 
 .matched-section .clue-list-summary {
-  background: #e6fffa;
-  color: #234e52;
+  background: var(--color-clue-green-bg);
+  color: var(--color-clue-green-text);
 }
 
 .failed-section .clue-list-summary {
-  background: #fff5f5;
-  color: #742a2a;
+  background: var(--color-clue-red-bg);
+  color: var(--color-clue-red-text);
 }
 
 .clue-list-body {
@@ -279,15 +387,15 @@ select {
 }
 
 .clue-tag.matched {
-  background: #c6f6d5;
-  color: #22543d;
-  border: 1px solid #9ae6b4;
+  background: var(--color-clue-tag-green-bg);
+  color: var(--color-clue-tag-green-text);
+  border: 1px solid var(--color-clue-tag-green-border);
 }
 
 .clue-tag.failed {
-  background: #fed7d7;
-  color: #742a2a;
-  border: 1px solid #feb2b2;
+  background: var(--color-clue-tag-red-bg);
+  color: var(--color-clue-tag-red-text);
+  border: 1px solid var(--color-clue-tag-red-border);
 }
 
 .hand-row .card-slot {
@@ -311,7 +419,7 @@ select {
 }
 
 .hand-actions {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-border-soft);
   padding-top: 0.5rem;
 }
 
@@ -334,7 +442,7 @@ select {
 
 .hand-row.current-turn {
   border-color: #3182ce;
-  background: #ebf8ff;
+  background: var(--color-highlight-bg);
 }
 
 .hand-label {
@@ -374,7 +482,7 @@ select {
 .slot-label {
   font-size: 0.7rem;
   font-weight: 700;
-  color: #4a5568;
+  color: var(--color-text-soft);
   line-height: 1;
 }
 
@@ -387,20 +495,21 @@ select {
   width: 3.2rem;
   height: 4.5rem;
   border-radius: 6px;
-  border: 2px solid #2d3748;
+  border: 2px solid var(--color-card-border);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  background: #fff;
+  background: var(--color-card-bg);
+  color: var(--color-text);
   flex-shrink: 0;
 }
 
 .card-slot-empty {
-  background: #edf2f7;
+  background: var(--color-border-softer);
   border-style: dashed;
-  border-color: #cbd5e0;
+  border-color: var(--color-border);
 }
 
 .card.hidden {
@@ -410,7 +519,7 @@ select {
 
 .card.highlighted {
   box-shadow: 0 0 0 3px #ecc94b;
-  background: #fffff0;
+  background: var(--color-card-highlight-bg);
 }
 
 .card-color-label {
@@ -453,7 +562,7 @@ select {
 .color-pile {
   border-radius: 8px;
   padding: 0.5rem;
-  background: #edf2f7;
+  background: var(--color-pile-bg);
   font-size: 0.9rem;
 }
 
@@ -502,7 +611,7 @@ select {
 }
 
 .rule-fieldset {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border-soft);
   border-radius: 8px;
   padding: 0.75rem;
   margin-bottom: 0.75rem;
@@ -560,7 +669,7 @@ select {
   flex-direction: column;
   gap: 0.35rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--color-border-softer);
 }
 
 .preset-option-row:last-child {
@@ -579,7 +688,7 @@ select {
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 4px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--color-border);
 }
 
 .preset-rules-details {
@@ -589,7 +698,7 @@ select {
 
 .preset-rules-details summary {
   cursor: pointer;
-  color: #4a5568;
+  color: var(--color-text-soft);
 }
 
 .preset-rules-details .rules-list {
@@ -616,7 +725,7 @@ select {
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.35rem 0;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--color-border-softer);
 }
 
 .player-order-row:last-child {
@@ -689,7 +798,7 @@ select {
   gap: 0.75rem;
   margin-bottom: 1rem;
   border: 2px solid #805ad5;
-  background: #faf5ff;
+  background: var(--color-banner-accent-bg);
 }
 
 .game-screen.replay-mode .game-main {
@@ -712,7 +821,7 @@ select {
 }
 
 .history-detail {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-border-soft);
   padding-top: 0.5rem;
   margin-top: 0.5rem;
   font-size: 0.9rem;
@@ -721,7 +830,7 @@ select {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(26, 26, 46, 0.45);
+  background: var(--color-modal-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -730,7 +839,7 @@ select {
 }
 
 .modal {
-  background: #fff;
+  background: var(--color-panel-bg);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   width: min(720px, 100%);
@@ -778,7 +887,7 @@ select {
 }
 
 .rules-color-card {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border-soft);
   border-radius: 8px;
   padding: 0.65rem 0.75rem;
 }
@@ -802,8 +911,8 @@ select {
 
 .color-pile-hoverable:hover,
 .color-rules-tooltip-wrap:focus-within .color-pile-hoverable {
-  background: #e2e8f0;
-  box-shadow: inset 0 0 0 1px #cbd5e0;
+  background: var(--color-pile-bg-hover);
+  box-shadow: inset 0 0 0 1px var(--color-border);
 }
 
 .color-rules-tooltip-wrap {
@@ -818,8 +927,8 @@ select {
   z-index: 20;
   min-width: 220px;
   max-width: 280px;
-  background: #1a202c;
-  color: #f7fafc;
+  background: var(--color-tooltip-bg);
+  color: var(--color-tooltip-text);
   border-radius: 8px;
   padding: 0.55rem 0.65rem;
   font-size: 0.8rem;
@@ -835,7 +944,7 @@ select {
   left: 1rem;
   border-width: 0 0.35rem 0.35rem;
   border-style: solid;
-  border-color: transparent transparent #1a202c;
+  border-color: transparent transparent var(--color-tooltip-bg);
 }
 
 .color-rules-tooltip-title {
@@ -860,8 +969,8 @@ select {
 
 .played-number-chip {
   display: inline-block;
-  background: #fff;
-  border: 1px solid #cbd5e0;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 0.1rem 0.35rem;
   font-weight: 600;
@@ -879,8 +988,8 @@ select {
   z-index: 25;
   min-width: 120px;
   max-width: 200px;
-  background: #1a202c;
-  color: #f7fafc;
+  background: var(--color-tooltip-bg);
+  color: var(--color-tooltip-text);
   border-radius: 6px;
   padding: 0.35rem 0.5rem;
   font-size: 0.72rem;
@@ -916,7 +1025,7 @@ select {
   z-index: 1;
   text-align: center;
   padding: 1.5rem;
-  background: #fff;
+  background: var(--color-panel-bg);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   min-width: 220px;
@@ -947,8 +1056,9 @@ select {
 }
 
 .turn-action-card.revealed {
-  background: #fff;
-  color: #1a1a2e;
+  background: var(--color-card-bg);
+  color: var(--color-text);
+  border-color: var(--color-card-border);
 }
 
 .turn-action-mystery {
@@ -969,7 +1079,7 @@ select {
 .turn-action-destination {
   margin: 0.75rem 0 0;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--color-text-soft);
   animation: fade-in 0.3s ease;
 }
 
@@ -981,7 +1091,7 @@ select {
   gap: 0.6rem;
   padding: 0.85rem 1.2rem;
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-panel-bg);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
   font-weight: 600;
   font-size: 1rem;
@@ -1077,7 +1187,7 @@ select {
   text-align: center;
   padding: 2rem 2.5rem;
   border-radius: 16px;
-  background: #fff;
+  background: var(--color-panel-bg);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   max-width: min(90vw, 420px);
   transform: scale(0.7);
@@ -1137,7 +1247,7 @@ select {
 
 .game-end-message {
   margin: 0 0 1.25rem;
-  color: #4a5568;
+  color: var(--color-text-soft);
   line-height: 1.45;
 }
 

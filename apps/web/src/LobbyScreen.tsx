@@ -4,6 +4,8 @@ import { buildInviteClipboardText, buildInviteUrl } from "./invite-link.js";
 import { downloadGameExport } from "./game-export-io.js";
 import { RuleConfigForm } from "./RuleConfigForm.js";
 import { PlayerOrderControls } from "./PlayerOrderControls.js";
+import { ThemeToggle } from "./ThemeToggle.js";
+import type { ThemeMode } from "./useTheme.js";
 
 type Session = {
   gameId: string;
@@ -20,6 +22,8 @@ type Props = {
   error: string | null;
   onLeave: () => void;
   onStarted: () => void;
+  theme: ThemeMode;
+  onThemeChange: (theme: ThemeMode) => void;
 };
 
 export function LobbyScreen({
@@ -29,6 +33,8 @@ export function LobbyScreen({
   error,
   onLeave,
   onStarted,
+  theme,
+  onThemeChange,
 }: Props) {
   const [startError, setStartError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
@@ -110,7 +116,10 @@ export function LobbyScreen({
     <div>
       <div className="row" style={{ justifyContent: "space-between" }}>
         <h1>Lobby</h1>
-        <button onClick={onLeave}>Leave</button>
+        <div className="row">
+          <ThemeToggle theme={theme} onChange={onThemeChange} />
+          <button onClick={onLeave}>Leave</button>
+        </div>
       </div>
 
       <p className="muted">Connection: {connectionState}</p>
