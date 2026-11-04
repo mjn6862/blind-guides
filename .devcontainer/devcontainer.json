@@ -13,7 +13,8 @@
   "remoteUser": "node",
   "mounts": [
     "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
-    "source=${localWorkspaceFolder}/.devcontainer,target=/workspace/.devcontainer,type=bind,readonly"
+    "source=${localWorkspaceFolder}/.devcontainer,target=/workspace/.devcontainer,type=bind,readonly",
+    "source=${localWorkspaceFolder}/.gitignore,target=/workspace/.gitignore,type=bind,readonly"
   ],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/node/.claude"
