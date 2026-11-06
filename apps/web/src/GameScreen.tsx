@@ -11,6 +11,7 @@ import type { CardClueHistory, CardTurnInfo } from "@blind-guides/shared";
 import { ColorRulesTooltip } from "./ColorRulesTooltip.js";
 import { RulesModal } from "./RulesModal.js";
 import { GameEndOverlay } from "./GameEndOverlay.js";
+import { RulebookLink } from "./RulebookLink.js";
 import { ThemeToggle } from "./ThemeToggle.js";
 import { TurnActionOverlay } from "./TurnActionOverlay.js";
 import { useClueListExpansion } from "./useClueListExpansion.js";
@@ -603,6 +604,7 @@ export function GameScreen({
       <header className="game-header row">
         <h1>Blind Guides</h1>
         <div className="header-actions row">
+          <RulebookLink />
           <ThemeToggle theme={theme} onChange={onThemeChange} />
           <button type="button" onClick={() => setRulesOpen(true)}>
             Rules

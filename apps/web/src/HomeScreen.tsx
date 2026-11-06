@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { readInviteCodeFromUrl } from "./invite-link.js";
+import { RulebookLink } from "./RulebookLink.js";
 import { ThemeToggle } from "./ThemeToggle.js";
 import type { ThemeMode } from "./useTheme.js";
 
@@ -183,7 +184,10 @@ export function HomeScreen({ onCreated, onJoined, theme, onThemeChange }: Props)
     <div>
       <div className="row" style={{ justifyContent: "space-between" }}>
         <h1>Blind Guides</h1>
-        <ThemeToggle theme={theme} onChange={onThemeChange} />
+        <div className="row">
+          <RulebookLink />
+          <ThemeToggle theme={theme} onChange={onThemeChange} />
+        </div>
       </div>
       <p className="muted">Blind Guides: the blind lead the blind in this cooperative card game.</p>
 

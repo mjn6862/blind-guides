@@ -5,6 +5,10 @@ Blind Guides: the blind lead the blind in this cooperative card game, inspired b
 <!-- ![Screenshot of a game in progress](docs/screenshot.png) -->
 <!-- TODO: add a screenshot of a game in progress -->
 
+## Full Rules
+
+For the rules, see [RULES.md](RULES.md).
+
 ## Features
 
 - Highly customizable suit rules and presets

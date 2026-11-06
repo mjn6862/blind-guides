@@ -4,6 +4,7 @@ import { buildInviteClipboardText, buildInviteUrl } from "./invite-link.js";
 import { downloadGameExport } from "./game-export-io.js";
 import { RuleConfigForm } from "./RuleConfigForm.js";
 import { PlayerOrderControls } from "./PlayerOrderControls.js";
+import { RulebookLink } from "./RulebookLink.js";
 import { ThemeToggle } from "./ThemeToggle.js";
 import type { ThemeMode } from "./useTheme.js";
 
@@ -124,6 +125,7 @@ export function LobbyScreen({
       <div className="row" style={{ justifyContent: "space-between" }}>
         <h1>Lobby</h1>
         <div className="row">
+          <RulebookLink />
           <ThemeToggle theme={theme} onChange={onThemeChange} />
           <button onClick={onLeave}>Leave</button>
         </div>

@@ -123,6 +123,19 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid var(--color-button-border);
+  background: var(--color-button-bg);
+  color: var(--color-text);
+  border-radius: 6px;
+  padding: 0.45rem 0.8rem;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
 input,
 select {
   padding: 0.45rem 0.6rem;
