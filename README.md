@@ -9,10 +9,79 @@ Blind Guides: the blind lead the blind in this cooperative card game, inspired b
 
 For the rules, see [RULES.md](RULES.md).
 
+## Play online with friends (dev tunnel)
+
+I expect most people will are here because they want to play the game with friends, not to do development, so I'm including the steps for playing online with friends before development steps. 
+
+You have to set up your own dev tunnel (steps below) because I don't currently have this hosted on a public URL because I don't want to maintain (and possibly pay for) the server.
+
+For development, you can run the Vite dev server and tunnel separately:
+
+### 0. One-time setup
+
+Follow the initial steps in [Development](#development) to install npm and build with it.
+
+### 1. Start the app
+
+In one terminal:
+
+```bash
+npm run dev
+```
+
+Wait until both the server (port 3001) and web app (port 5173) are running.
+
+### 2. Start a tunnel
+
+In a **second** terminal, from the project root:
+
+```bash
+npm run tunnel
+```
+
+This runs [Cloudflare Quick Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/do-more-with-tunnels/trycloudflare/) via `cloudflared`.
+
+Look for the boxed line near the top of the output:
+
+```text
+Your quick Tunnel has been created! Visit it at:
+https://something-random.trycloudflare.com
+```
+
+**Do not** open `api.cloudflare.com` — that line is only a connectivity health check, not your game URL.
+
+Alternatively, with [ngrok](https://ngrok.com/):
+
+```bash
+ngrok http 5173
+```
+
+Use the `https://your-subdomain.ngrok-free.app` URL ngrok prints.
+
+**Important:** tunnel **port 5173** (the Vite dev server). It proxies `/api` and `/ws` to the game server automatically.
+
+### 3. Host a game
+
+1. Open the tunnel URL in your browser (not `localhost`).
+2. Create a game and enter your name.
+3. In the lobby, click **Copy invite link** and send it to friends (Discord, text, etc.).
+4. When everyone has joined, click **Start game**.
+
+Friends open the invite link, enter their name, and click **Join game**. The link pre-fills the invite code.
+
+### Tunnel notes
+
+- Keep both terminals running (`npm run dev` and the tunnel) for the whole session.
+- Tunnel URLs change each time you restart the tunnel (unless you configure a named Cloudflare tunnel).
+- In dev, the server accepts CORS from common tunnel hostnames (`trycloudflare.com`, `ngrok`, etc.).
+- To allow extra origins: `CORS_ORIGINS=https://your-url.example` (comma-separated).
+- To disable tunnel CORS in dev: `CORS_ALLOW_TUNNELS=false`.
+
+
 ## Features
 
 - Highly customizable suit rules and presets
-- 2-10 players
+- 2-10 players (the game might be unwieldy with more than five players)
 - Invite-code joining with an optional host password (no accounts)
 - Full-state turn-history replay
 - Casual undo
